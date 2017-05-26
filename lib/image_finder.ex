@@ -6,6 +6,7 @@ defmodule ImageFinder do
   end
  
   def fetch(source_file, target_directory) do
-    GenServer.call(ImageFinder.Worker, {:fetch, source_file, target_directory})
+    # GenServer.call(ImageFinder.Worker, {:fetch, source_file, target_directory})
+    GenServer.cast(ImageFinder.Worker, {:fetch, source_file, target_directory})
   end
 end

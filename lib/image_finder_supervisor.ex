@@ -6,8 +6,16 @@ defmodule ImageFinder.Supervisor do
   end
 
   def init(:ok) do
-    children = [worker(ImageFinder.Worker, [ImageFinder.Worker])]
+    
+    # inciar supervisores
+    Supervisor.start_child(ImageFinder.Worker.Supervisor, worker(ImageFinder.Worker, [ImageFinder.Worker], id: make_ref)  )
+    Supervisor.start_child(ImageFinder.Fetcher.Supervisor, worker(ImageFinder.Fetcher, [ImageFinder.Fetcher], id: make_ref)  )
+    Supervisor.start_child(ImageFinder.Downloader.Supervisor, worker(ImageFinder.Downloader, [ImageFinder.Downloader], id: make_ref)  )
+    #children = [worker(ImageFinder.Worker, [ImageFinder.Worker]),
+    #            worker(ImageFinder.Fetcher, [ImageFinder.Fetcher]),
+    #            worker(ImageFinder.Downloader, [ImageFinder.Downloader])
+    #          ]
 
-    supervise(children, strategy: :one_for_one)
+    supervise([], strategy: :one_for_one)
   end
 end

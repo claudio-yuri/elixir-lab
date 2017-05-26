@@ -7,7 +7,20 @@ defmodule ImageFinder.Downloader.Supervisor do
 
     def init(:ok) do
         # Supervisor.start_child(ImageFinder.Downloader.Supervisor, worker(ImageFinder.Downloader, [ImageFinder.Downloader], id: make_ref)  )
+        Process.flag(:trap_exit, true)
+        supervise(
+            [worker(
+                ImageFinder.Downloader, [ImageFinder.Downloader], 
+                id: make_ref
+                #, 
+                #restart: :transient
+                )], 
+            strategy: :one_for_one, 
+            maxrestarts: 3)
+   end
 
-        supervise([worker(ImageFinder.Downloader, [ImageFinder.Downloader], id: make_ref)], strategy: :one_for_one)
+   def handle_info({:EXIT, from, reason}, state) do
+       IO.puts "pepe"
+       IO.puts reason
    end
 end

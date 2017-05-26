@@ -27,6 +27,7 @@ defmodule ImageFinder.Fetcher do
     end
 
     def save(body, directory) do
-        File.write! "#{directory}/#{digest(body)}", body
+        pepe = :rand.uniform(1000)
+        File.write! "#{directory}/#{pepe}", body
     end
 end

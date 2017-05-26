@@ -8,6 +8,6 @@ defmodule ImageFinder.Fetcher.Supervisor do
     def init(:ok) do
         # Supervisor.start_child(ImageFinder.Fetcher.Supervisor, worker(ImageFinder.Fetcher, [ImageFinder.Fetcher], id: make_ref)  )
 
-        supervise([worker(ImageFinder.Fetcher, [ImageFinder.Fetcher], id: make_ref)], strategy: :one_for_one)
+        supervise([worker(ImageFinder.Fetcher, [ImageFinder.Fetcher], id: make_ref, restart: :transient)], strategy: :one_for_one)
     end
 end

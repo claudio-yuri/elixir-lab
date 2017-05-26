@@ -1,11 +1,13 @@
 defmodule ImageFinder.Downloader.Supervisor do
     use Supervisor
-
-    def start_link do
-        Supervisor.start_link(__MODULE__, :ok)
+    
+    def start_link(name) do
+        Supervisor.start_link(__MODULE__, :ok, name: name)
     end
 
     def init(:ok) do
-        supervise([], strategy: :one_for_one)
+        # Supervisor.start_child(ImageFinder.Downloader.Supervisor, worker(ImageFinder.Downloader, [ImageFinder.Downloader], id: make_ref)  )
+
+        supervise([worker(ImageFinder.Downloader, [ImageFinder.Downloader], id: make_ref)], strategy: :one_for_one)
    end
 end

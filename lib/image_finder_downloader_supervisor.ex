@@ -11,16 +11,10 @@ defmodule ImageFinder.Downloader.Supervisor do
         supervise(
             [worker(
                 ImageFinder.Downloader, [ImageFinder.Downloader], 
-                id: make_ref
-                #, 
-                #restart: :transient
+                id: make_ref(),
+                restart: :transient
                 )], 
             strategy: :one_for_one, 
             maxrestarts: 3)
-   end
-
-   def handle_info({:EXIT, from, reason}, state) do
-       IO.puts "pepe"
-       IO.puts reason
    end
 end

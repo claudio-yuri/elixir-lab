@@ -8,4 +8,4 @@ Nullam elementum, massa eu posuere elementum, ex lectus facilisis elit, a gravid
 
 Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean finibus euismod enim a venenatis. Donec eget lorem eu nisl gravida suscipit quis non tortor. Cras porta elit eu semper consequat. Nam auctor semper interdum. Sed venenatis ipsum vel varius imperdiet. Aliquam posuere elit sagittis felis iaculis lacinia. Curabitur hendrerit massa in augue rhoncus convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum lacinia eros ac odio dignissim auctor.
 
-https://hexdocs.pm/elixir/assets/logo.png asa aksah jka makl https://cdn-images-1.medium.com/letterbox/287/54/50/50/1*UMR5TzsQsRe9j94pWkXz-Q.png
+https://hexdocs.pm/elixir/assets/logo.png asa aksah jka makl http://static.glanacion.com/v1/ln/imgs/avatar-2.png

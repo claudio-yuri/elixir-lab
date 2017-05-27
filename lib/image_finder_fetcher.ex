@@ -11,23 +11,18 @@ defmodule ImageFinder.Fetcher do
 
     # callbacks
     def handle_cast({:fetch, url, targetdir}, state) do
-        #HTTPotion.get(url).body |> save(targetdir)
         GenServer.cast(ImageFinder.Downloader, {:get, url, targetdir, self})
         {:noreply, state}
     end
 
-    def handle_cast({:file, bytes, targetdir}, state) do
-        save(bytes, targetdir)
+    def handle_cast({:file, name, ext, bytes, targetdir}, state) do
+        filename = name <> Integer.to_string(:rand.uniform(1000)) <> "." <> ext
+        File.write! "#{targetdir}/#{filename}", bytes
         {:noreply, state}
     end        
 
     # helpers
     def digest(body) do
         :crypto.hash(:md5 , body) |> Base.encode16()
-    end
-
-    def save(body, directory) do
-        pepe = :rand.uniform(1000)
-        File.write! "#{directory}/#{pepe}", body
     end
 end

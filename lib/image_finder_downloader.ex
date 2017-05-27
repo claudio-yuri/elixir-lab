@@ -19,13 +19,6 @@ defmodule ImageFinder.Downloader do
     Gets the contents of the given url and issues a reply to te requester
     """
     def handle_cast({:get, url, targetdir, reply_to}, state) do
-        # try do
-            #HTTPotion.get(url).body |> reply(targetdir, reply_to)
-        # rescue
-            # :conn_failed, _ -> {:EXIT, self(), :conn_failed}
-            # e in RuntimeError -> {:EXIT, self(), e}
-            # e -> GenServer.cast({:EXIT, self(), :cant_download}
-        # end
         # will try to get the image contents 3 times
         # if it fails, will raise an exception
         download(url, targetdir, reply_to, 3)
@@ -48,7 +41,9 @@ defmodule ImageFinder.Downloader do
         response = HTTPotion.get(url)
         case HTTPotion.Response.success? response do
             true ->
-                reply(response.body, targetdir, reply_to)
+                filename = url |> String.split("/") |> List.last |> String.split(".")
+                
+                reply(List.first(filename), List.last(filename), response.body, targetdir, reply_to)
             false ->
                 download(url, targetdir, reply_to, times - 1)
         end
@@ -57,7 +52,7 @@ defmodule ImageFinder.Downloader do
     @doc """
     Sends the image to the requester
     """
-    defp reply(bytes, targetdir, reply_to) do
-        GenServer.cast(reply_to, {:file, bytes, targetdir})
+    defp reply(name, ext, bytes, targetdir, reply_to) do
+        GenServer.cast(reply_to, {:file, name, ext, bytes, targetdir})
     end    
 end
